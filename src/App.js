@@ -21,7 +21,7 @@ function App(props) {
       
        <List>
         {tareas.map(item =>(
-           <Item key={item.text} text={item.text}/> 
+           <Item key={item.text} text={item.text} completed={item.completed}/> 
         ))}  
       </List>
 
