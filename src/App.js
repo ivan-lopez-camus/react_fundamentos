@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {Counter} from './Counter';
+import {Search} from './Search';
+import {List} from './List';
+import {Item} from './Item';
+import {CreateButton} from './CreateButton';
+//import './App.css';
 
-function App() {
+const tareas = [
+  {text: 'Cocinar', completed: false},
+  {text: 'Leer', completed: false},
+  {text: 'Jugar', completed: false}
+];
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <Counter/>
+     
+       <Search/>
+      
+       <List>
+        {tareas.map(item =>(
+           <Item key={item.text} text={item.text}/> 
+        ))}  
+      </List>
+
+       <CreateButton/>
+  
+    </React.Fragment>
   );
 }
 
