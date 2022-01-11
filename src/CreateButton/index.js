@@ -3,13 +3,13 @@ import './CreateButton.css';
 
 function CreateButton(props){
 
-    const onClickButton = (mens) =>{
-        alert(mens)
+    const onClickButton = () =>{
+        props.setOpenModal(prevState => !prevState)
     }
     return(
         <button 
             className="CreateButton"
-            onClick={()=>onClickButton("Hola a todos")}   
+            onClick={onClickButton}   
         >
             +
         </button>

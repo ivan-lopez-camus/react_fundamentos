@@ -3,6 +3,7 @@ import {Counter} from '../Counter';
 import {Search} from '../Search';
 import {List} from '../List';
 import {Item} from '../Item';
+import {Modal} from '../Modal';
 import {CreateButton} from '../CreateButton';
 import './App.css';
 
@@ -13,7 +14,9 @@ function AppUI({
     setSearchValue,
     searchTareas,
     completarTarea,
-    borrarTarea
+    borrarTarea,
+    openModal,
+    setOpenModal
 }) {
 
     return (
@@ -39,8 +42,16 @@ function AppUI({
               /> 
           ))}  
         </List>
-  
-         <CreateButton/>
+            
+       {openModal && ( 
+            <Modal>
+                <p>{searchTareas[0]?.text}</p>
+            </Modal>
+        )}
+
+         <CreateButton
+            setOpenModal = {setOpenModal}
+         />
     
       </React.Fragment>
     )

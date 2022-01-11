@@ -7,11 +7,40 @@ const defaulTareas = [
   {text: 'Jugar', completed: true}
 ];
 
-function App(props) {
+function useLocalStorage (itemName, initialValue) {
+
+  const localStorageItem = localStorage.getItem(itemName);
+  let parseItem;
+
+  if(!localStorageItem){ //localSrotage vacio sin tareas
+    
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parseItem = initialValue;
+
+  }else{
+    parseItem = JSON.parse(localStorageItem);
+  }
+
+  const [item, setItem] = React.useState(parseItem);
+
+  const guardarItem = (nuevoItem) => {
+    const stringItem = JSON.stringify(nuevoItem);
+    localStorage.setItem(itemName, stringItem);
+    setItem(nuevoItem)
+  };
+
+  return [
+    item,
+    guardarItem,
+  ];
+}
+
+function App() {
   
-  const [tareas, setTareas] = React.useState(defaulTareas);
+  const [tareas, guardarTareas] = useLocalStorage('Tareas', []);
   const [searchValue, setSearchValue] = React.useState("");
   
+  const [openModal, setOpenModal] = React.useState(false);
   const tareasCompletadas = tareas.filter(tarea => !!tarea.completed).length;
   const totalTareas = tareas.length;
 
@@ -24,16 +53,17 @@ function App(props) {
       const tareaText = tar.text.toLowerCase();
       const searchText = searchValue.toLowerCase();
       return tareaText.includes(searchText);
-    })
+    });
    
   }
+
 
   const completarTarea = (text) => {
       const tareaIndex = tareas.findIndex(tarea => tarea.text === text);
       
       const newTareas = [...tareas];
       newTareas[tareaIndex].completed = true;
-      setTareas(newTareas);
+      guardarTareas(newTareas);
   }
 
   const borrarTarea = (text) => {
@@ -41,7 +71,15 @@ function App(props) {
     
     const newTareas = [...tareas];
     newTareas.splice(tareaIndex,1);
-    setTareas(newTareas);
+    guardarTareas(newTareas);
+}
+
+const abrirModal = (text) => {
+  
+}
+
+const actualizarModal = (text) => {
+ 
 }
 
   return (
@@ -53,6 +91,8 @@ function App(props) {
     searchTareas={searchTareas}
     completarTarea={completarTarea}
     borrarTarea={borrarTarea}
+    openModal = {openModal}
+    setOpenModal = {setOpenModal}
     />
   );
 }
