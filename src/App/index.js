@@ -1,10 +1,5 @@
 import React from 'react';
-import {Counter} from './Counter';
-import {Search} from './Search';
-import {List} from './List';
-import {Item} from './Item';
-import {CreateButton} from './CreateButton';
-import './App.css';
+import {AppUI} from './AppUI';
 
 const defaulTareas = [
   {text: 'Cocinar', completed: false},
@@ -13,7 +8,7 @@ const defaulTareas = [
 ];
 
 function App(props) {
-
+  
   const [tareas, setTareas] = React.useState(defaulTareas);
   const [searchValue, setSearchValue] = React.useState("");
   
@@ -50,32 +45,15 @@ function App(props) {
 }
 
   return (
-    <React.Fragment>
-      <Counter
-        total={totalTareas}
-        completados={tareasCompletadas}
-      />
-     
-       <Search
-       searchValue={searchValue}
-       setSearchValue={setSearchValue}
-       />
-      
-       <List>
-        {searchTareas.map(item =>(
-           <Item 
-            key={item.text} 
-            text={item.text} 
-            completed={item.completed}
-            onComplete = {() => completarTarea(item.text)}
-            onDelete = {() => borrarTarea(item.text)}
-            /> 
-        ))}  
-      </List>
-
-       <CreateButton/>
-  
-    </React.Fragment>
+    <AppUI
+    totalTareas={totalTareas}
+    tareasCompletadas={tareasCompletadas}
+    searchValue={searchValue}
+    setSearchValue={setSearchValue}
+    searchTareas={searchTareas}
+    completarTarea={completarTarea}
+    borrarTarea={borrarTarea}
+    />
   );
 }
 
