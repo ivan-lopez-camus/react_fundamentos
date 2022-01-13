@@ -74,12 +74,13 @@ function App() {
     guardarTareas(newTareas);
 }
 
-const abrirModal = (text) => {
-  
-}
-
-const actualizarModal = (text) => {
- 
+const addTarea = (text) => {
+  const newTareas = [...tareas];
+  newTareas.push({
+    completed: false,
+    text,
+  });
+  guardarTareas(newTareas);
 }
 
   return (
@@ -93,6 +94,7 @@ const actualizarModal = (text) => {
     borrarTarea={borrarTarea}
     openModal = {openModal}
     setOpenModal = {setOpenModal}
+    addTarea = {addTarea}
     />
   );
 }
